@@ -1,5 +1,5 @@
 # base image
-FROM openjdk:11
+FROM openjdk:8
 
 # define spark and hadoop versions
 ENV SPARK_VERSION=3.1.2
@@ -18,6 +18,7 @@ RUN mkdir -p /opt && \
     cd /opt && \
     curl http://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop3.2.tgz | \
         tar -zx && \
+    ln -s spark-${SPARK_VERSION}-bin-hadoop3.2 spark && \
     wget https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/3.1.2/hadoop-aws-3.1.2.jar -P /opt/spark/jars \
     wget https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk/1.11.534/aws-java-sdk-1.11.534.jar -P /opt/spark/jars \
     wget https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-core/1.11.534/aws-java-sdk-core-1.11.534.jar -P /opt/spark/jars \
@@ -31,7 +32,6 @@ RUN mkdir -p /opt && \
     wget https://repo1.maven.org/maven2/net/sf/jt400/jt400/10.7/jt400-10.7.jar -P /opt/spark/jars \
     wget https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/9.4.0.jre8/mssql-jdbc-9.4.0.jre8.jar -P /opt/spark/jars \
     wget https://repo1.maven.org/maven2/io/delta/delta-core_2.12/1.0.0/delta-core_2.12-1.0.0.jar -P /opt/spark/jars \
-    ln -s spark-${SPARK_VERSION}-bin-hadoop3.2 spark && \
     echo Spark ${SPARK_VERSION} installed in /opt
 
 # add scripts and update spark default config
