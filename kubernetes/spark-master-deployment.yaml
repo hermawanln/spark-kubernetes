@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: spark-master
-          image: spark-hadoop:3.2.0
+          image: docker.io/131296/spark-hadoop:3.1.2
           command: ["/spark-master"]
           ports:
             - containerPort: 7077
